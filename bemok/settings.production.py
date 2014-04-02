@@ -1,7 +1,7 @@
 # Django settings for bemok project.
 import os
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -40,6 +40,7 @@ ALLOWED_HOSTS=(
   '127.0.0.1',
   'bicidade.com.br',
   'bicidade.net',
+  '107.20.1.5',
 )
 
 # Local time zone for this installation. Choices can be found here:
@@ -128,7 +129,6 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(BASE_DIR, "templates/")
 )
 
 INSTALLED_APPS = (

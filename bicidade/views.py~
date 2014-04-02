@@ -1,10 +1,8 @@
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse
 from bicidade.models import * 
 import json
 from django.db import connection
 from django.views.decorators.csrf import csrf_exempt
-from django.template import RequestContext
-from django.shortcuts import render_to_response
 
 @csrf_exempt
 def reverse_geocode(request):
@@ -27,8 +25,6 @@ def route(request):
   cursor = connection.cursor()
   
   print "altimetria"+str(alt)
-  if alt==None:
-    alt=0
   cursor.execute("SELECT bicidade.route(%s,%s,%s,%s,%s,%s)",[x0,y0,x1,y1,crit,alt])
   results = cursor.fetchall()
   response = HttpResponse(results[0])
@@ -39,6 +35,4 @@ def route(request):
   
   return response
   
-def home(request):
-  return HttpResponseRedirect('/map')
-
+  
