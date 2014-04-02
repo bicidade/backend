@@ -2,7 +2,9 @@ from django.http import HttpResponse
 from bicidade.models import * 
 import json
 from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def reverse_geocode(request):
   x=request.GET.get('x')
   y=request.GET.get('y')
@@ -12,15 +14,20 @@ def reverse_geocode(request):
     
   
   return HttpResponse(str(id))
-  
+@csrf_exempt
 def route(request):
   x0=request.GET.get('x0')
   y0=request.GET.get('y0')
   x1=request.GET.get('x1')
   y1=request.GET.get('y1')
+  alt=request.GET.get('alt')
   crit=request.GET.get('crit')
   cursor = connection.cursor()
-  cursor.execute("SELECT bicidade.route(%s,%s,%s,%s,%s)",[x0,y0,x1,y1,crit])
+  
+  print "altimetria"+str(alt)
+  if alt==None:
+    alt=0
+  cursor.execute("SELECT bicidade.route(%s,%s,%s,%s,%s,%s)",[x0,y0,x1,y1,crit,alt])
   results = cursor.fetchall()
   response = HttpResponse(results[0])
   response["Access-Control-Allow-Origin"] = "*"  
