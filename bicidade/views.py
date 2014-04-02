@@ -26,7 +26,7 @@ def route(request):
   crit=request.GET.get('crit')
   cursor = connection.cursor()
   
-  print "altimetria"+str(alt)
+  #print "altimetria"+str(alt)
   if alt==None:
     alt=0
   cursor.execute("SELECT bicidade.route(%s,%s,%s,%s,%s,%s)",[x0,y0,x1,y1,crit,alt])
